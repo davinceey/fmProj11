@@ -55,23 +55,23 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-   scroll-behavior: auto;
-  }
+    html:focus-within {
+        scroll-behavior: auto;
+    }
   
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
+}
 }
 
 body{
@@ -81,6 +81,7 @@ body{
     min-height: 100vh;
     background-color: hsl(210, 46%, 95%);
     font-family: 'Manrope', sans-serif;
+    position: relative;
 }
 main{
     width: min(90%, 60em);
@@ -89,12 +90,26 @@ main{
 .container{
     display: flex;
     box-shadow: 0px 5px 100px hsl(210, 17%, 86%);
+
+}
+.overlay{
+    width: 100%;
+    min-height: 100vh;
+    z-index: 0;
+    position: absolute;
+    transition: all 0.4s;
 }
 
+.lay{
+    background-color: hsl(214, 6%, 24%);
+    z-index: 15;
+    opacity: 0.5;
+}
 .drawer{
     width: 38%;
     border-top-left-radius:  10px;
     border-bottom-left-radius:  10px;
+    z-index: 1;
 }
 .section{
     background-color: white;
@@ -103,7 +118,7 @@ main{
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     position: relative;
-
+    
 }
 .sub__section{
     width: 100%;
@@ -149,10 +164,13 @@ h2{
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
-    
+    z-index: 20;
 }
 .icon__share:hover{
     background-color:hsl(203, 4%, 57%);
+}
+.icon__share:hover img{
+    filter: brightness(10);
 }
 
 
@@ -171,12 +189,26 @@ h2{
     padding: 1em;
     width: 15em;
     position: absolute;
-    left: 70%;
+    left: 71%;
     bottom: 30%;
-    box-shadow: 0px 5px 10px hsl(216, 24%, 65%);
+    /* box-shadow: 0px 5px 10px hsl(216, 24%, 65%); */
     border-radius: 10px;
     transition: all 0.2s;
     transform: scaleY(0);
+    z-index: 20;
+}
+.social__media:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width:0;
+    z-index: 20;
+    border-style: solid;
+    border-color: hsl(217, 19%, 35%) transparent transparent;
+    border-width: 15px;
+    bottom: -30px;
+    left: 50%;
+    margin-left: -10px;
 }
 
 .social__img{
@@ -186,12 +218,7 @@ h2{
 .social__img:hover{
     transform: translateY(-5px);
 }
-@media(max-width: 864px){
-    .social__media{
-    left: 55%;
-    bottom: 20% ;
-    }
-}
+
 
 .social__p{
     letter-spacing: 3px;
@@ -203,10 +230,19 @@ h2{
     border-radius: 3px;
 }
 .active{
-    /* visibility: visible; */
+    visibility: visible;
     transform: scaleY(1);
 }
+.not-active{
+    visibility: hidden;
+}
 
+@media(max-width: 864px){
+    .social__media{
+    left: 55%;
+    bottom: 20% ;
+    }
+}
 @media(max-width: 750px){
     main{
        width: min(90%,25em);
@@ -241,5 +277,9 @@ h2{
         align-items: center;
         border-top-right-radius: 0;
         border-top-left-radius: 0;
+        z-index: 98;
+    }
+    .social__media:after{
+        display: none;
     }
 }
